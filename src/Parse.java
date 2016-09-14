@@ -4,28 +4,32 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Created by Prabha on 14/09/16.
+ * This class contains function to sample and parse documents given a sample rate.
+ * And other function to create an inverted index from a given list of documents.
  */
-class ParseInput {
-
+class Parse {
     Map<Integer,Document> getDocuments(String inputFile, double sampleRate) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
-        Map<Integer, Document> documents = new HashMap();
+        Map<Integer, Document> documents = new HashMap<>();
         int skipLines = 4;
         String delimiter = ":";
         String line;
-        Integer documentId = 0;
-        Integer parseDocuments = 0;
+        Integer documentId = -1;
+        Integer parsedDocuments = -1;
         while (null != (line = bufferedReader.readLine())) {
             if (line.length() == 0) {
-                parseDocuments++;
+                parsedDocuments++;
             }
-            if (line.length() == 0 && parseDocuments % (1 / sampleRate) == 0) {
+            if (line.length() == 0 && parsedDocuments % (1 / sampleRate) == 0) {
                 Document document = new Document();
                 for (int i = 0; i < skipLines; i++) {
                     bufferedReader.readLine();
                 }
                 line = bufferedReader.readLine();
+                if(null == line){
+                    break;
+                }
+                documentId++;
                 document.id = documentId;
                 document.score = line.split(delimiter)[1];
                 bufferedReader.readLine();
@@ -34,7 +38,6 @@ class ParseInput {
                 line = bufferedReader.readLine();
                 document.text = line.split(delimiter)[1];
                 documents.put(documentId, document);
-                documentId++;
             }
 
         }

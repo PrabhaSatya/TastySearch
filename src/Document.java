@@ -1,5 +1,5 @@
 /**
- * Created by Prabha on 14/09/16.
+ * Model class representing each document in the given data set.
  */
 class Document {
     Integer id;
