@@ -31,7 +31,8 @@ class Main {
             }
         }
         Query query = new Query();
-        ArrayList<Pair<Double,Document>> topKDocuments = query.getTopKDocuments(queryTokenDocumentBuckets,documents,numQueryWords,K);
+        ArrayList<Document> topKDocuments = query.getTopKDocuments(queryTokenDocumentBuckets,documents,
+                                                                                numQueryWords,K);
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
         System.out.println("Time taken for querying in Milli Seconds:" + totalTime);
@@ -42,9 +43,8 @@ class Main {
 
     }
 
-    private static void printDocument(Pair<Double,Document> documentAndScore) {
-        System.out.println("Matching Score:"+documentAndScore.getKey());
-        Document document = documentAndScore.getValue();
+    private static void printDocument(Document document) {
+        System.out.println("Matching Score:"+document.matchingScore);
         System.out.println("Summary:"+ document.summary);
         System.out.println("Text:"+ document.text);
         System.out.println("Static Review Score:"+ document.reviewScore);

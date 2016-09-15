@@ -8,21 +8,22 @@ import java.util.*;
  * This class contains functions to find the topK reviews given a query and index of input dataset.
  */
 class Query {
-    ArrayList<Pair<Double,Document>> getTopKDocuments(List<List<Integer>> queryTokenDocumentLists,
+    ArrayList<Document> getTopKDocuments(List<List<Integer>> queryTokenDocumentLists,
                                                                 Map<Integer,Document> documents,
                                                                 Integer numQueryWords,
                                                                 Integer K){
         Integer numQueryTokensInIndex = queryTokenDocumentLists.size();
         Map<Integer,Integer> documentCounts = getDocumentCounts(queryTokenDocumentLists);
         Map<Integer,ArrayList<Integer>> countBuckets = getBuckets(documentCounts);
-        ArrayList<Pair<Double,Document>> topKDocuments = new ArrayList<>();
+        ArrayList<Document> topKDocuments = new ArrayList<>();
         for(Integer count = numQueryTokensInIndex; count >= 0; count--){
             ArrayList<Integer> bucket = countBuckets.get(count);
             if(null != bucket){
                 ArrayList<Document> sortedBucket = sortBucketAsPerScore(bucket,documents);
                 Double matchScore = (1.0 * count)/numQueryWords;
                 for(Document document: sortedBucket){
-                    topKDocuments.add(new Pair<>(matchScore,document));
+                    document.matchingScore = matchScore;
+                    topKDocuments.add(document);
                 }
                 if(topKDocuments.size() >= K){
                     break;

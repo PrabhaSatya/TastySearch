@@ -67,7 +67,8 @@ class Parse {
         return index;
     }
 
-    private void parseDocument(Map<String, List<Integer>> index, Map.Entry<Integer, Document> document,Set<String> stopWords) {
+    private void parseDocument(Map<String, List<Integer>> index, Map.Entry<Integer, Document> document,
+                               Set<String> stopWords) {
         Integer documentId = document.getValue().id;
         String summary = document.getValue().summary;
         String text = document.getValue().text;
@@ -77,7 +78,8 @@ class Parse {
         insertWordsToIndex(index,documentId,textWords,stopWords);
     }
 
-    private void insertWordsToIndex(Map<String, List<Integer>> index, Integer documentId, String[] summaryWords,Set<String> stopWords) {
+    private void insertWordsToIndex(Map<String, List<Integer>> index, Integer documentId, String[] summaryWords,
+                                    Set<String> stopWords) {
         for(String word:summaryWords){
             if(!stopWords.contains(word)){
                 List<Integer> documentList = index.get(word);

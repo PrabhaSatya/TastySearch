@@ -8,4 +8,5 @@ class Document {
     String summary;
     String text;
     String reviewScore;
+    Double matchingScore;
 }
