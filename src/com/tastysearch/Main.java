@@ -1,5 +1,6 @@
+package com.tastysearch;
 /**
- * Main class containaing code to read and output results
+ * com.tastysearch.Main class contains code to read and output results
  */
 
 import java.io.IOException;

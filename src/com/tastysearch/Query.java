@@ -1,3 +1,5 @@
+package com.tastysearch;
+
 import java.util.*;
 
 /**
