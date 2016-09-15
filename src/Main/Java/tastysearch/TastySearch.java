@@ -1,13 +1,11 @@
-package com.tastysearch;
+package tastysearch;
 /**
- * com.tastysearch.Main class contains code to read and output results
+ * com.tastysearch.TastySearch class contains code to read and output results
  */
-
-import javafx.util.Pair;
 
 import java.io.IOException;
 import java.util.*;
-class Main {
+class TastySearch {
     public static void main(String args[]) throws IOException {
         Integer K = 20;
         Parse parse = new Parse();
@@ -36,7 +34,6 @@ class Main {
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
         System.out.println("Time taken for querying in Milli Seconds:" + totalTime);
-
         for(int i = 0; i < K; i++){
             printDocument(topKDocuments.get(i));
         }

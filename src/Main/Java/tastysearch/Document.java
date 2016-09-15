@@ -1,4 +1,4 @@
-package com.tastysearch;
+package tastysearch;
 
 /**
  * Model class representing each document in the given data set.

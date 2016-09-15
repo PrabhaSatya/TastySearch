@@ -1,4 +1,4 @@
-package com.tastysearch;
+package tastysearch;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

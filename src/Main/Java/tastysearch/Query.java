@@ -1,6 +1,4 @@
-package com.tastysearch;
-
-import javafx.util.Pair;
+package tastysearch;
 
 import java.util.*;
 
