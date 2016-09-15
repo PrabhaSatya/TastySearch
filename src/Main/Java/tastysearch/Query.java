@@ -73,9 +73,9 @@ class Query {
     private class ScoreCompartor implements Comparator<Document>{
         @Override
         public int compare(Document doc1, Document doc2) {
-            if(Double.parseDouble(doc1.reviewScore) > Double.parseDouble(doc2.reviewScore)){
+            if(Double.parseDouble(doc1.reviewScore) < Double.parseDouble(doc2.reviewScore)){
                 return 1;
-            }else if (Double.parseDouble(doc1.reviewScore) < Double.parseDouble(doc2.reviewScore)){
+            }else if (Double.parseDouble(doc1.reviewScore) > Double.parseDouble(doc2.reviewScore)){
                 return -1;
             }else{
                 return 0;
