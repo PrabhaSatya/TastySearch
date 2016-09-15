@@ -80,13 +80,14 @@ class Parse {
     private void insertWordsToIndex(Map<String, List<Integer>> index, Integer documentId, String[] summaryWords,Set<String> stopWords) {
         for(String word:summaryWords){
             if(!stopWords.contains(word)){
-                if(null == index.get(word)){
-                    List<Integer> documentList = new ArrayList<>();
+                List<Integer> documentList = index.get(word);
+                if(null == documentList){
+                    documentList = new ArrayList<>();
                     documentList.add(documentId);
                     index.put(word, documentList);
                 }else{
-                    if(!index.get(word).contains(documentId)){
-                        index.get(word).add(documentId);
+                    if(!documentList.contains(documentId)){
+                        documentList.add(documentId);
                     }
                 }
             }
