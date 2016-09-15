@@ -1,10 +1,10 @@
 /**
- * Main class containaing code to
+ * Main class containaing code to read and output results
  */
 
 import java.io.IOException;
 import java.util.*;
-public class Main {
+class Main {
     public static void main(String args[]) throws IOException {
         Integer K = 20;
         Parse parse = new Parse();
