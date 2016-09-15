@@ -6,7 +6,7 @@ package tastysearch;
 import java.io.IOException;
 import java.util.*;
 class TastySearch {
-    public static void main(String args[]) throws IOException {
+     private void TastySearchInterface() throws IOException {
         Integer K = 20;
         Parse parse = new Parse();
         Map<Integer,Document> documents = parse.getDocuments("inputfiles/finefoods.txt",0.2);
