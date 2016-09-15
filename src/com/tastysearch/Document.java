@@ -7,5 +7,5 @@ class Document {
     Integer id;
     String summary;
     String text;
-    String score;
+    String reviewScore;
 }

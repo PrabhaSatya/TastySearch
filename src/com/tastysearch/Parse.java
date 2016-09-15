@@ -33,7 +33,7 @@ class Parse {
                 }
                 documentId++;
                 document.id = documentId;
-                document.score = line.split(delimiter)[1];
+                document.reviewScore = line.split(delimiter)[1];
                 bufferedReader.readLine();
                 line = bufferedReader.readLine();
                 document.summary = line.split(delimiter)[1];

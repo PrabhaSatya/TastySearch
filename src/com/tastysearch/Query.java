@@ -1,22 +1,29 @@
 package com.tastysearch;
 
+import javafx.util.Pair;
+
 import java.util.*;
 
 /**
  * This class contains functions to find the topK reviews given a query and index of input dataset.
  */
 class Query {
-    ArrayList<Document> getTopKDocuments(List<List<Integer>> queryTokenDocumentLists,Map<Integer,Document> documents,
-                                         Integer K){
-        Integer numQueryTokens = queryTokenDocumentLists.size();
+    ArrayList<Pair<Double,Document>> getTopKDocuments(List<List<Integer>> queryTokenDocumentLists,
+                                                                Map<Integer,Document> documents,
+                                                                Integer numQueryWords,
+                                                                Integer K){
+        Integer numQueryTokensInIndex = queryTokenDocumentLists.size();
         Map<Integer,Integer> documentCounts = getDocumentCounts(queryTokenDocumentLists);
         Map<Integer,ArrayList<Integer>> countBuckets = getBuckets(documentCounts);
-        ArrayList<Document> topKDocuments = new ArrayList<>();
-        for(int count = numQueryTokens; count >= 0; count--){
+        ArrayList<Pair<Double,Document>> topKDocuments = new ArrayList<>();
+        for(Integer count = numQueryTokensInIndex; count >= 0; count--){
             ArrayList<Integer> bucket = countBuckets.get(count);
             if(null != bucket){
                 ArrayList<Document> sortedBucket = sortBucketAsPerScore(bucket,documents);
-                topKDocuments.addAll(sortedBucket);
+                Double matchScore = (1.0 * count)/numQueryWords;
+                for(Document document: sortedBucket){
+                    topKDocuments.add(new Pair<>(matchScore,document));
+                }
                 if(topKDocuments.size() >= K){
                     break;
                 }
@@ -67,9 +74,9 @@ class Query {
     private class ScoreCompartor implements Comparator<Document>{
         @Override
         public int compare(Document doc1, Document doc2) {
-            if(Double.parseDouble(doc1.score) > Double.parseDouble(doc2.score)){
+            if(Double.parseDouble(doc1.reviewScore) > Double.parseDouble(doc2.reviewScore)){
                 return 1;
-            }else if (Double.parseDouble(doc1.score) < Double.parseDouble(doc2.score)){
+            }else if (Double.parseDouble(doc1.reviewScore) < Double.parseDouble(doc2.reviewScore)){
                 return -1;
             }else{
                 return 0;

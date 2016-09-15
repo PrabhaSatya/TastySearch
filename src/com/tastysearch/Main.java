@@ -3,6 +3,8 @@ package com.tastysearch;
  * com.tastysearch.Main class contains code to read and output results
  */
 
+import javafx.util.Pair;
+
 import java.io.IOException;
 import java.util.*;
 class Main {
@@ -29,7 +31,7 @@ class Main {
             }
         }
         Query query = new Query();
-        ArrayList<Document> topKDocuments = query.getTopKDocuments(queryTokenDocumentBuckets,documents,K);
+        ArrayList<Pair<Double,Document>> topKDocuments = query.getTopKDocuments(queryTokenDocumentBuckets,documents,numQueryWords,K);
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
         System.out.println("Time taken for querying in Milli Seconds:" + totalTime);
@@ -40,9 +42,11 @@ class Main {
 
     }
 
-    private static void printDocument(Document document) {
-        System.out.println("Summary:"+document.summary);
-        System.out.println("Text:"+document.text);
-        System.out.println("Score:"+document.score);
+    private static void printDocument(Pair<Double,Document> documentAndScore) {
+        System.out.println("Matching Score:"+documentAndScore.getKey());
+        Document document = documentAndScore.getValue();
+        System.out.println("Summary:"+ document.summary);
+        System.out.println("Text:"+ document.text);
+        System.out.println("Static Review Score:"+ document.reviewScore);
     }
 }
