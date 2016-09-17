@@ -17,6 +17,7 @@ public class DocumentIndex {
 
     public List<Document> getTopKScores(String queryString) {
         long startTime = System.currentTimeMillis();
+        logger.log(Level.INFO,"Query:" + queryString);
         String[] queryWords = queryString.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
         // TODO: write code to clean queryString
         logger.log(Level.INFO,"Query Words:" + Arrays.toString(queryWords));
@@ -33,7 +34,11 @@ public class DocumentIndex {
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
         logger.log(Level.INFO,"Time taken for querying in Milli Seconds:" + totalTime);
-        return topDocuments.subList(0,K-1);
+        if(topDocuments.size() > K){
+            return topDocuments.subList(0,K-1);
+        }else{
+            return topDocuments;
+        }
     }
 
     public void createIndex(String inputFile, String stopWordsFile) throws IOException{

@@ -25,8 +25,12 @@ public class QueryServlet extends HttpServlet {
         String queryString = req.getParameter("query");
         List<Document> results = documentIndex.getTopKScores(queryString);
         Writer writer = resp.getWriter();
-        for(Document document:results){
-            writer.write(document.toString());
+        if(0 == results.size()){
+            writer.write("No matches found");
+        }else{
+            for(Document document:results){
+                writer.write(document.toString());
+            }
         }
         writer.flush();
     }
