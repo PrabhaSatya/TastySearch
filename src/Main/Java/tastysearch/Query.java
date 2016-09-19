@@ -17,7 +17,7 @@ class Query {
         for(Integer count = numQueryTokensInIndex; count >= 0; count--){
             ArrayList<Integer> bucket = countBuckets.get(count);
             if(null != bucket){
-                ArrayList<Document> sortedBucket = sortBucketAsPerScore(bucket,documents);
+                ArrayList<Document> sortedBucket = sortBucketAsPerReviewScore(bucket,documents);
                 Double matchScore = (1.0 * count)/numQueryWords;
                 for(Document document: sortedBucket){
                     document.matchingScore = matchScore;
@@ -31,7 +31,7 @@ class Query {
         return topKDocuments;
     }
 
-    private ArrayList<Document> sortBucketAsPerScore(ArrayList<Integer> bucket,Map<Integer,Document> documents) {
+    private ArrayList<Document> sortBucketAsPerReviewScore(ArrayList<Integer> bucket, Map<Integer,Document> documents) {
         ArrayList<Document> sortedBucket = new ArrayList<>();
         for (Integer documentId : bucket) {
             sortedBucket.add(documents.get(documentId));
@@ -39,6 +39,9 @@ class Query {
         Collections.sort(sortedBucket,new ScoreCompartor());
         return sortedBucket;
     }
+
+    /* Returns a map containing the number of matches as key and a list of document ids with that
+    particular number of matches as value */
 
     private Map<Integer,ArrayList<Integer>> getBuckets(Map<Integer, Integer> documentCounts) {
         Map<Integer,ArrayList<Integer>> countBuckets = new HashMap<>();
@@ -54,6 +57,8 @@ class Query {
         }
         return countBuckets;
     }
+
+    /* Returns a map containing the document id as the key and the number of matches found in the documents value */
 
     private Map<Integer,Integer> getDocumentCounts(List<List<Integer>> documentLists){
         Map<Integer,Integer> documentCounts = new HashMap<>();
